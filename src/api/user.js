@@ -1,10 +1,18 @@
 import request from '@/utils/request'
+import qs from 'qs'
+// export const login = (data) => {
+//   return request({
+//     url: '/vue-admin-template/user/login',
+//     method: 'post',
+//     data
+//   })
+// }
 
-export function login(data) {
+export const login = (data = {}) => {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/api/user/login',
     method: 'post',
-    data
+    data: qs.stringify(data)
   })
 }
 

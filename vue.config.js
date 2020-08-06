@@ -36,8 +36,22 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
-  },
+    // 代理所有以‘/admin’开头的网络请求
+    proxy: {
+      '/api': {
+        target: `http://localhost:7672/`, // 后台服务地址（Springboot内置tomcat默认的地址）
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        // 路径重写，可以理解为路径重新赋值
+        // '^/admin': '/'
+        // pathRewrite: {'^/admin': '/'} 重写之后url为 http://localhost:8080/xxxx
+        // pathRewrite: {'^/admin': '/admin'}
+        // 重写之后url为http://localhost:8080/admin/xxxx
+        }
+      }
+      // before: require('./mock/mock-server.js')
+    }},
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
